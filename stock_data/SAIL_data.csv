@@ -1,0 +1,31 @@
+Date,Symbol,Name,Close,Volume,Tech Rating,MA Rating,Os Rating,RSI (14),Mom (10),AO,CCI (20)
+2026-03-13,SAIL,	Steel Authority of India Limited,149.89,24157379,Neutral,Neutral,Neutral,,,,
+2026-03-16,SAIL,	Steel Authority of India Limited,144.69,16060150,Neutral,Neutral,Neutral,,,,
+2026-03-17,SAIL,	Steel Authority of India Limited,153.53,27048278,Neutral,Neutral,Neutral,,,,
+2026-03-18,SAIL,	Steel Authority of India Limited,154.42,20171195,Neutral,Neutral,Neutral,,,,
+2026-03-19,SAIL,	Steel Authority of India Limited,152.55,14841772,Neutral,Neutral,Neutral,,,,
+2026-03-20,SAIL,	Steel Authority of India Limited,155.52,25811397,Neutral,Neutral,Neutral,,,,
+2026-03-23,SAIL,	Steel Authority of India Limited,143.04,21470572,Neutral,Neutral,Neutral,,,,
+2026-03-24,SAIL,	Steel Authority of India Limited,145.73,17464379,Neutral,Neutral,Neutral,,,,
+2026-03-25,SAIL,	Steel Authority of India Limited,151.71,22905688,Neutral,Neutral,Neutral,,,,
+2026-03-27,SAIL,	Steel Authority of India Limited,146.47,27097799,Neutral,Neutral,Neutral,,,,
+2026-03-30,SAIL,	Steel Authority of India Limited,151.42,70851364,Neutral,Neutral,Neutral,,1.02,,
+2026-04-01,SAIL,	Steel Authority of India Limited,155.82,38264128,Buy,Neutral,Neutral,,7.69,,
+2026-04-02,SAIL,	Steel Authority of India Limited,155.16,28426617,Neutral,Neutral,Neutral,,1.06,,
+2026-04-06,SAIL,	Steel Authority of India Limited,160.44,27838073,Sell,Neutral,Neutral,62.32,3.9,,
+2026-04-07,SAIL,	Steel Authority of India Limited,160.62,21021523,Neutral,Neutral,Neutral,62.5,5.29,,
+2026-04-08,SAIL,	Steel Authority of India Limited,164.41,34940851,Neutral,Neutral,Neutral,66.21,5.72,,
+2026-04-09,SAIL,	Steel Authority of India Limited,163.35,21954699,Neutral,Neutral,Neutral,64.3,14.2,,
+2026-04-10,SAIL,	Steel Authority of India Limited,166.02,15081386,Neutral,Neutral,Neutral,66.89,13.92,,
+2026-04-13,SAIL,	Steel Authority of India Limited,167.88,29116175,Neutral,Neutral,Neutral,68.6,10.66,,
+2026-04-15,SAIL,	Steel Authority of India Limited,166.95,25814344,Neutral,Neutral,Sell,66.74,13.98,,138.25
+2026-04-16,SAIL,	Steel Authority of India Limited,171.32,30877678,Sell,Neutral,Sell,70.75,13.14,,136.21
+2026-04-17,SAIL,	Steel Authority of India Limited,173.33,24677974,Sell,Neutral,Sell,72.4,11.24,,142.32
+2026-04-20,SAIL,	Steel Authority of India Limited,172.71,17825908,Sell,Neutral,Sell,71.07,11.31,,118.81
+2026-04-21,SAIL,	Steel Authority of India Limited,175.06,27069051,Sell,Neutral,Sell,73.09,9.11,,127.6
+2026-04-22,SAIL,	Steel Authority of India Limited,176.23,20405858,Sell,Neutral,Sell,74.06,9.72,,118.79
+2026-04-23,SAIL,	Steel Authority of India Limited,176.45,18802890,Sell,Neutral,Sell,74.25,7.32,,103.5
+2026-04-24,SAIL,	Steel Authority of India Limited,178.46,18292305,Sell,Neutral,Sell,75.96,9.25,,108.39
+2026-04-27,SAIL,	Steel Authority of India Limited,184.2,46111040,Sell,Neutral,Sell,80.05,10.95,,139.28
+2026-04-28,SAIL,	Steel Authority of India Limited,185.63,26454300,Sell,Neutral,Sell,80.92,10.57,,147.94
+2026-04-29,SAIL,	Steel Authority of India Limited,,25519122,Strong Sell,Neutral,Sell,80.92,,,

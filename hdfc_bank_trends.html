@@ -1,0 +1,786 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDFC Bank - Technical Analysis Trends</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        
+        .stat-card h3 {
+            color: #2a5298;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .rating-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .rating-item:last-child {
+            border-bottom: none;
+        }
+        
+        .rating-label {
+            font-weight: 500;
+        }
+        
+        .rating-value {
+            background: #667eea;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.9em;
+        }
+        
+        .charts-section {
+            padding: 30px;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .chart-title {
+            color: #2a5298;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .data-table {
+            padding: 30px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .buy {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .sell {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .neutral {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        
+        .footer {
+            background: #2a5298;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 HDFC Bank - Technical Analysis Dashboard</h1>
+            <p>Symbol: HDFCBANK | Last Updated: 2026-04-27 22:23:46</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>📊 Technical Rating Distribution</h3>
+                
+                <div class="rating-item">
+                    <span class="rating-label">Neutral:</span>
+                    <span class="rating-value">19</span>
+                </div>
+            
+                <div class="rating-item">
+                    <span class="rating-label">Buy:</span>
+                    <span class="rating-value">7</span>
+                </div>
+            
+                <div class="rating-item">
+                    <span class="rating-label">Sell:</span>
+                    <span class="rating-value">4</span>
+                </div>
+            
+            </div>
+            <div class="stat-card">
+                <h3>📈 MA Rating Distribution</h3>
+                
+                <div class="rating-item">
+                    <span class="rating-label">Neutral:</span>
+                    <span class="rating-value">19</span>
+                </div>
+            
+                <div class="rating-item">
+                    <span class="rating-label">Buy:</span>
+                    <span class="rating-value">11</span>
+                </div>
+            
+            </div>
+            <div class="stat-card">
+                <h3>🎯 Oscillator Rating Distribution</h3>
+                
+                <div class="rating-item">
+                    <span class="rating-label">Neutral:</span>
+                    <span class="rating-value">28</span>
+                </div>
+            
+                <div class="rating-item">
+                    <span class="rating-label">Buy:</span>
+                    <span class="rating-value">2</span>
+                </div>
+            
+            </div>
+            <div class="stat-card">
+                <h3>📉 Latest Indicators</h3>
+                <div class="rating-item">
+                    <span class="rating-label">RSI (14):</span>
+                    <span class="rating-value">47.94</span>
+                </div>
+                <div class="rating-item">
+                    <span class="rating-label">Momentum (10):</span>
+                    <span class="rating-value">-2.53</span>
+                </div>
+                <div class="rating-item">
+                    <span class="rating-label">AO:</span>
+                    <span class="rating-value">nan</span>
+                </div>
+                <div class="rating-item">
+                    <span class="rating-label">CCI (20):</span>
+                    <span class="rating-value">15.48</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="charts-section">
+            <div class="chart-container">
+                <h2 class="chart-title">RSI (14) Trend - 30 Days</h2>
+                <canvas id="rsiChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h2 class="chart-title">Momentum (10) Trend - 30 Days</h2>
+                <canvas id="momentumChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h2 class="chart-title">Awesome Oscillator (AO) Trend - 30 Days</h2>
+                <canvas id="aoChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h2 class="chart-title">CCI (20) Trend - 30 Days</h2>
+                <canvas id="cciChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="data-table">
+            <h2 class="chart-title">Complete Data Table</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Symbol</th>
+                        <th>Name</th>
+                        <th>Tech Rating</th>
+                        <th>MA Rating</th>
+                        <th>Os Rating</th>
+                        <th>RSI (14)</th>
+                        <th>Mom (10)</th>
+                        <th>AO</th>
+                        <th>CCI (20)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                <tr>
+                    <td>2026-04-27</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="buy">Buy</td>
+                    <td class="neutral">Neutral</td>
+                    <td>47.94</td>
+                    <td>-2.53</td>
+                    <td>nan</td>
+                    <td>15.48</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-24</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="buy">Buy</td>
+                    <td class="neutral">Neutral</td>
+                    <td>46.34</td>
+                    <td>-1.61</td>
+                    <td>nan</td>
+                    <td>-0.84</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-23</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="buy">Buy</td>
+                    <td class="neutral">Neutral</td>
+                    <td>46.18</td>
+                    <td>-3.89</td>
+                    <td>nan</td>
+                    <td>18.13</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-22</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="buy">Buy</td>
+                    <td class="neutral">Neutral</td>
+                    <td>50.38</td>
+                    <td>3.61</td>
+                    <td>nan</td>
+                    <td>66.78</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-21</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="buy">Buy</td>
+                    <td class="buy">Buy</td>
+                    <td class="neutral">Neutral</td>
+                    <td>53.85</td>
+                    <td>5.29</td>
+                    <td>nan</td>
+                    <td>80.49</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-20</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="buy">Buy</td>
+                    <td class="buy">Buy</td>
+                    <td class="neutral">Neutral</td>
+                    <td>49.4</td>
+                    <td>5.93</td>
+                    <td>nan</td>
+                    <td>45.19</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-17</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="buy">Buy</td>
+                    <td class="buy">Buy</td>
+                    <td class="neutral">Neutral</td>
+                    <td>50.64</td>
+                    <td>7.77</td>
+                    <td>nan</td>
+                    <td>32.54</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-16</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="buy">Buy</td>
+                    <td class="buy">Buy</td>
+                    <td class="neutral">Neutral</td>
+                    <td>49.47</td>
+                    <td>8.73</td>
+                    <td>nan</td>
+                    <td>38.77</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-15</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="buy">Buy</td>
+                    <td class="buy">Buy</td>
+                    <td class="neutral">Neutral</td>
+                    <td>53.29</td>
+                    <td>7.1</td>
+                    <td>nan</td>
+                    <td>52.74</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-13</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="buy">Buy</td>
+                    <td class="neutral">Neutral</td>
+                    <td>49.48</td>
+                    <td>1.59</td>
+                    <td>nan</td>
+                    <td>11.31</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-10</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="buy">Buy</td>
+                    <td class="buy">Buy</td>
+                    <td class="neutral">Neutral</td>
+                    <td>53.65</td>
+                    <td>5.94</td>
+                    <td>nan</td>
+                    <td>36.77</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-09</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="buy">Buy</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>50.52</td>
+                    <td>7.2</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-08</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>55.62</td>
+                    <td>4.57</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-07</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>42.77</td>
+                    <td>-3.28</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-06</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="sell">Sell</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>42.41</td>
+                    <td>-8.55</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-02</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="buy">Buy</td>
+                    <td>34.97</td>
+                    <td>-11.17</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-04-01</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="buy">Buy</td>
+                    <td>31.43</td>
+                    <td>-11.7</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-30</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="sell">Sell</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>-10.46</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-27</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="sell">Sell</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>-9.19</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-25</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="sell">Sell</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>-6.19</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-24</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-23</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-20</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-19</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-18</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-17</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-16</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-13</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-12</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                <tr>
+                    <td>2026-03-11</td>
+                    <td>HDFCBANK</td>
+                    <td>HDFC Bank Ltd</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td class="neutral">Neutral</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                    <td>nan</td>
+                </tr>
+            
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="footer">
+            <p>Generated by HDFC Stock Analyzer | Data for educational purposes only</p>
+        </div>
+    </div>
+    
+    <script>
+        // Chart.js configuration
+        const chartConfig = {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        };
+        
+        // RSI Chart
+        new Chart(document.getElementById('rsiChart'), {
+            type: 'line',
+            data: {
+                labels: ["2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-27", "2026-03-30", "2026-04-01", "2026-04-02", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-27"],
+                datasets: [{
+                    label: 'RSI (14)',
+                    data: [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 31.43, 34.97, 42.41, 42.77, 55.62, 50.52, 53.65, 49.48, 53.29, 49.47, 50.64, 49.4, 53.85, 50.38, 46.18, 46.34, 47.94],
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                ...chartConfig,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }
+        });
+        
+        // Momentum Chart
+        new Chart(document.getElementById('momentumChart'), {
+            type: 'bar',
+            data: {
+                labels: ["2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-27", "2026-03-30", "2026-04-01", "2026-04-02", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-27"],
+                datasets: [{
+                    label: 'Momentum (10)',
+                    data: [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, -6.19, -9.19, -10.46, -11.7, -11.17, -8.55, -3.28, 4.57, 7.2, 5.94, 1.59, 7.1, 8.73, 7.77, 5.93, 5.29, 3.61, -3.89, -1.61, -2.53],
+                    backgroundColor: ["rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(255, 99, 132, 0.5)", "rgba(255, 99, 132, 0.5)", "rgba(255, 99, 132, 0.5)", "rgba(255, 99, 132, 0.5)", "rgba(255, 99, 132, 0.5)", "rgba(255, 99, 132, 0.5)", "rgba(255, 99, 132, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(255, 99, 132, 0.5)", "rgba(255, 99, 132, 0.5)", "rgba(255, 99, 132, 0.5)"],
+                    borderColor: ["rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)"],
+                    borderWidth: 1
+                }]
+            },
+            options: chartConfig
+        });
+        
+        // AO Chart
+        new Chart(document.getElementById('aoChart'), {
+            type: 'bar',
+            data: {
+                labels: ["2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-27", "2026-03-30", "2026-04-01", "2026-04-02", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-27"],
+                datasets: [{
+                    label: 'Awesome Oscillator',
+                    data: [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN],
+                    backgroundColor: ["rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)", "rgba(75, 192, 192, 0.5)"],
+                    borderColor: ["rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)"],
+                    borderWidth: 1
+                }]
+            },
+            options: chartConfig
+        });
+        
+        // CCI Chart
+        new Chart(document.getElementById('cciChart'), {
+            type: 'line',
+            data: {
+                labels: ["2026-03-11", "2026-03-12", "2026-03-13", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-27", "2026-03-30", "2026-04-01", "2026-04-02", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-13", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-27"],
+                datasets: [{
+                    label: 'CCI (20)',
+                    data: [NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, NaN, 36.77, 11.31, 52.74, 38.77, 32.54, 45.19, 80.49, 66.78, 18.13, -0.84, 15.48],
+                    borderColor: 'rgb(153, 102, 255)',
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                ...chartConfig,
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

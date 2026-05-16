@@ -1,0 +1,31 @@
+Date,Symbol,Name,Close,Volume,Tech Rating,MA Rating,Os Rating,RSI (14),Mom (10),AO,CCI (20)
+2026-03-13,INFY,Infosys Ltd,1248.3,7366098,Neutral,Neutral,Neutral,,,,
+2026-03-16,INFY,Infosys Ltd,1249.8,12314450,Neutral,Neutral,Neutral,,,,
+2026-03-17,INFY,Infosys Ltd,1232.9,11223276,Neutral,Neutral,Neutral,,,,
+2026-03-18,INFY,Infosys Ltd,1267.1,12365381,Neutral,Neutral,Neutral,,,,
+2026-03-19,INFY,Infosys Ltd,1220.8,9156461,Neutral,Neutral,Neutral,,,,
+2026-03-20,INFY,Infosys Ltd,1255.9,27299975,Neutral,Neutral,Neutral,,,,
+2026-03-23,INFY,Infosys Ltd,1256.8,12420293,Neutral,Neutral,Neutral,,,,
+2026-03-24,INFY,Infosys Ltd,1278.3,13613495,Neutral,Neutral,Neutral,,,,
+2026-03-25,INFY,Infosys Ltd,1279.1,10824030,Neutral,Neutral,Neutral,,,,
+2026-03-27,INFY,Infosys Ltd,1269.7,13092541,Neutral,Neutral,Neutral,,,,
+2026-03-30,INFY,Infosys Ltd,1250.6,14108486,Neutral,Neutral,Neutral,,0.18,,
+2026-04-01,INFY,Infosys Ltd,1275.7,8137156,Neutral,Neutral,Neutral,,2.07,,
+2026-04-02,INFY,Infosys Ltd,1300.8,12873492,Buy,Neutral,Neutral,,5.51,,
+2026-04-06,INFY,Infosys Ltd,1306.2,10208682,Sell,Neutral,Neutral,65.48,3.09,,
+2026-04-07,INFY,Infosys Ltd,1339.4,15355792,Sell,Neutral,Sell,71.95,9.71,,
+2026-04-08,INFY,Infosys Ltd,1346.2,16030133,Sell,Neutral,Sell,73.06,7.19,,
+2026-04-09,INFY,Infosys Ltd,1331.6,14894607,Neutral,Neutral,Neutral,66.92,5.95,,
+2026-04-10,INFY,Infosys Ltd,1292.5,19233369,Neutral,Neutral,Neutral,53.86,1.11,,
+2026-04-13,INFY,Infosys Ltd,1276.8,10366082,Neutral,Neutral,Neutral,49.67,-0.18,,
+2026-04-15,INFY,Infosys Ltd,1305.3,12098912,Neutral,Neutral,Neutral,56.32,2.8,,77.96
+2026-04-16,INFY,Infosys Ltd,1319.2,18527029,Buy,Neutral,Neutral,59.15,5.49,,91.61
+2026-04-17,INFY,Infosys Ltd,1318.7,12064048,Neutral,Neutral,Neutral,59.0,3.37,,77.3
+2026-04-20,INFY,Infosys Ltd,1312.6,7172300,Neutral,Neutral,Neutral,57.12,0.91,,63.78
+2026-04-21,INFY,Infosys Ltd,1313.2,10057440,Neutral,Neutral,Neutral,57.27,0.54,,51.23
+2026-04-22,INFY,Infosys Ltd,1268.6,20088378,Sell,Neutral,Neutral,45.11,-5.29,,-55.77
+2026-04-23,INFY,Infosys Ltd,1240.6,14792854,Neutral,Neutral,Buy,39.45,-7.84,,-135.66
+2026-04-24,INFY,Infosys Ltd,1154.6,42078914,Buy,Neutral,Buy,27.88,-13.29,,-269.18
+2026-04-27,INFY,Infosys Ltd,1170.3,19579883,Neutral,Neutral,Buy,31.81,-9.45,,-230.25
+2026-04-28,INFY,Infosys Ltd,1152.1,12720276,Buy,Neutral,Buy,29.79,-9.77,,-199.93
+2026-04-29,INFY,Infosys Ltd,,8297290,Strong Buy,Neutral,Buy,29.79,,,

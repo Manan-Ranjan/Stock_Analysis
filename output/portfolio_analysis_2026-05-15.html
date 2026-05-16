@@ -1,0 +1,808 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Analysis - 2026-05-15</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+        
+        .stat-card h3 {
+            color: #2a5298;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .charts-section {
+            padding: 30px;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .chart-title {
+            color: #2a5298;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .data-table {
+            padding: 30px;
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .signal-strong-buy { color: #28a745; font-weight: bold; }
+        .signal-buy { color: #5cb85c; font-weight: bold; }
+        .signal-hold { color: #ffc107; font-weight: bold; }
+        .signal-sell { color: #dc3545; font-weight: bold; }
+        .signal-strong-sell { color: #c82333; font-weight: bold; }
+        
+        .footer {
+            background: #2a5298;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            font-size: 0.95em;
+        }
+        
+        .emoji {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Portfolio Analysis Dashboard</h1>
+            <p>Analysis Date: 2026-05-15 | Total Stocks: 25</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>🟢 Strong Buy / Buy</h3>
+                <div class="stat-value">7</div>
+            </div>
+            <div class="stat-card">
+                <h3>🟡 Hold</h3>
+                <div class="stat-value">4</div>
+            </div>
+            <div class="stat-card">
+                <h3>🔴 Sell / Strong Sell</h3>
+                <div class="stat-value">14</div>
+            </div>
+            <div class="stat-card">
+                <h3>📈 Avg Total Score</h3>
+                <div class="stat-value">-5.4</div>
+            </div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>📈 Rising Momentum</h3>
+                <div class="stat-value">0</div>
+                <p style="margin-top: 10px; color: #28a745;">Stocks gaining strength</p>
+            </div>
+            <div class="stat-card">
+                <h3>📉 Falling Momentum</h3>
+                <div class="stat-value">0</div>
+                <p style="margin-top: 10px; color: #dc3545;">Stocks losing strength</p>
+            </div>
+            <div class="stat-card">
+                <h3>➡️ Stable</h3>
+                <div class="stat-value">20</div>
+                <p style="margin-top: 10px; color: #ffc107;">Maintaining position</p>
+            </div>
+            <div class="stat-card">
+                <h3>🆕 New Entries</h3>
+                <div class="stat-value">5</div>
+                <p style="margin-top: 10px; color: #6c757d;">First time tracked</p>
+            </div>
+        </div>
+        
+        <div class="charts-section">
+            <div class="chart-container">
+                <h2 class="chart-title">📊 Score Momentum Trends</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                    Track which stocks are gaining or losing momentum over time
+                </p>
+                <canvas id="trendChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h2 class="chart-title">Stock Total Scores</h2>
+                <canvas id="scoresChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h2 class="chart-title">Sector Strength Analysis</h2>
+                <canvas id="sectorChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h2 class="chart-title">Relative Strength vs NIFTY</h2>
+                <canvas id="rsChart"></canvas>
+            </div>
+            
+            <div class="chart-container">
+                <h2 class="chart-title">Volume Expansion Ratios</h2>
+                <canvas id="volumeChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="data-table">
+            <h2 class="chart-title">Detailed Stock Analysis</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Sector</th>
+                        <th>Close (₹)</th>
+                        <th>EMA(20)</th>
+                        <th>vs EMA %</th>
+                        <th>Signal</th>
+                        <th>Total Score</th>
+                        <th>Score Trend</th>
+                        <th>RS Value (%)</th>
+                        <th>Vol Ratio</th>
+                        <th>RSI</th>
+                        <th>Trend</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+            <tr>
+                <td><span class="emoji">🟢</span> ADANIENT</td>
+                <td>Diversified</td>
+                <td>₹2716.00</td>
+                <td>₹2434.21</td>
+                <td class="buy">+11.58%</td>
+                <td class="signal-strong-buy">STRONG BUY</td>
+                <td>145</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>+17.65%</td>
+                <td>2.21x</td>
+                <td>75.8</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🟢</span> TMPV</td>
+                <td>Automobile</td>
+                <td>₹356.55</td>
+                <td>₹346.04</td>
+                <td class="buy">+3.04%</td>
+                <td class="signal-strong-buy">STRONG BUY</td>
+                <td>115</td>
+                <td><span class="emoji">🆕</span> NEW</td>
+                <td>+2.43%</td>
+                <td>5.05x</td>
+                <td>56.7</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🟢</span> SAIL</td>
+                <td>Metals & Mining</td>
+                <td>₹192.40</td>
+                <td>₹183.60</td>
+                <td class="buy">+4.79%</td>
+                <td class="signal-strong-buy">STRONG BUY</td>
+                <td>105</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>+9.78%</td>
+                <td>0.80x</td>
+                <td>61.4</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🟢</span> OIL</td>
+                <td>Energy</td>
+                <td>₹518.30</td>
+                <td>₹483.05</td>
+                <td class="buy">+7.30%</td>
+                <td class="signal-strong-buy">STRONG BUY</td>
+                <td>100</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>+14.43%</td>
+                <td>0.55x</td>
+                <td>66.9</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🟢</span> ADANIPOWER</td>
+                <td>Power & Utilities</td>
+                <td>₹221.33</td>
+                <td>₹213.70</td>
+                <td class="buy">+3.57%</td>
+                <td class="signal-strong-buy">STRONG BUY</td>
+                <td>95</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>+7.11%</td>
+                <td>1.14x</td>
+                <td>62.0</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🟢</span> TATASTEEL</td>
+                <td>Metals & Mining</td>
+                <td>₹216.84</td>
+                <td>₹213.17</td>
+                <td class="buy">+1.72%</td>
+                <td class="signal-strong-buy">STRONG BUY</td>
+                <td>90</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>+3.91%</td>
+                <td>1.34x</td>
+                <td>58.1</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🟢</span> ASIANPAINT</td>
+                <td>FMCG</td>
+                <td>₹2605.60</td>
+                <td>₹2506.96</td>
+                <td class="buy">+3.93%</td>
+                <td class="signal-strong-buy">STRONG BUY</td>
+                <td>80</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>+5.23%</td>
+                <td>0.75x</td>
+                <td>63.6</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🟡</span> MOTILALOFS</td>
+                <td>Financial Services</td>
+                <td>₹843.30</td>
+                <td>₹825.78</td>
+                <td class="buy">+2.12%</td>
+                <td class="signal-hold">HOLD</td>
+                <td>55</td>
+                <td><span class="emoji">🆕</span> NEW</td>
+                <td>+1.76%</td>
+                <td>0.39x</td>
+                <td>58.0</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🟡</span> ITC</td>
+                <td>FMCG</td>
+                <td>₹309.45</td>
+                <td>₹306.84</td>
+                <td class="buy">+0.85%</td>
+                <td class="signal-hold">HOLD</td>
+                <td>50</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>+3.00%</td>
+                <td>0.71x</td>
+                <td>54.0</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🟡</span> GAIL</td>
+                <td>Energy</td>
+                <td>₹162.13</td>
+                <td>₹161.93</td>
+                <td class="buy">+0.12%</td>
+                <td class="signal-hold">HOLD</td>
+                <td>40</td>
+                <td><span class="emoji">🆕</span> NEW</td>
+                <td>+2.30%</td>
+                <td>0.83x</td>
+                <td>52.8</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🟡</span> HINDUNILVR</td>
+                <td>FMCG</td>
+                <td>₹2272.20</td>
+                <td>₹2267.31</td>
+                <td class="buy">+0.22%</td>
+                <td class="signal-hold">HOLD</td>
+                <td>25</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>+2.61%</td>
+                <td>0.55x</td>
+                <td>51.9</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> PFC</td>
+                <td>Power Finance</td>
+                <td>₹445.75</td>
+                <td>₹450.52</td>
+                <td class="sell">-1.06%</td>
+                <td class="signal-sell">SELL</td>
+                <td>-30</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>-1.50%</td>
+                <td>0.49x</td>
+                <td>48.9</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> LT</td>
+                <td>Infrastructure</td>
+                <td>₹3909.00</td>
+                <td>₹3962.30</td>
+                <td class="sell">-1.35%</td>
+                <td class="signal-sell">SELL</td>
+                <td>-30</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>-0.86%</td>
+                <td>0.51x</td>
+                <td>46.5</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> HAL</td>
+                <td>Aerospace & Defence</td>
+                <td>₹4386.20</td>
+                <td>₹4467.84</td>
+                <td class="sell">-1.83%</td>
+                <td class="signal-sell">SELL</td>
+                <td>-35</td>
+                <td><span class="emoji">🆕</span> NEW</td>
+                <td>-1.97%</td>
+                <td>1.80x</td>
+                <td>49.0</td>
+                <td>Bearish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> IRCTC</td>
+                <td>Railways & Tourism</td>
+                <td>₹535.95</td>
+                <td>₹547.71</td>
+                <td class="sell">-2.15%</td>
+                <td class="signal-strong-sell">STRONG SELL</td>
+                <td>-50</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>-2.88%</td>
+                <td>0.42x</td>
+                <td>43.4</td>
+                <td>Bullish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> HDFCBANK</td>
+                <td>Banking</td>
+                <td>₹767.50</td>
+                <td>₹777.33</td>
+                <td class="sell">-1.26%</td>
+                <td class="signal-strong-sell">STRONG SELL</td>
+                <td>-70</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>-0.64%</td>
+                <td>0.70x</td>
+                <td>44.5</td>
+                <td>Bearish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> IOC</td>
+                <td>Energy</td>
+                <td>₹134.48</td>
+                <td>₹142.38</td>
+                <td class="sell">-5.55%</td>
+                <td class="signal-strong-sell">STRONG SELL</td>
+                <td>-75</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>-5.19%</td>
+                <td>2.47x</td>
+                <td>35.8</td>
+                <td>Bearish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> RELIANCE</td>
+                <td>Energy</td>
+                <td>₹1336.40</td>
+                <td>₹1386.50</td>
+                <td class="sell">-3.61%</td>
+                <td class="signal-strong-sell">STRONG SELL</td>
+                <td>-90</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>-2.24%</td>
+                <td>1.03x</td>
+                <td>38.8</td>
+                <td>Bearish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> JIOFIN</td>
+                <td>Financial Services</td>
+                <td>₹233.06</td>
+                <td>₹241.39</td>
+                <td class="sell">-3.45%</td>
+                <td class="signal-strong-sell">STRONG SELL</td>
+                <td>-90</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>-2.72%</td>
+                <td>0.39x</td>
+                <td>42.0</td>
+                <td>Bearish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> INFY</td>
+                <td>IT</td>
+                <td>₹1119.00</td>
+                <td>₹1178.45</td>
+                <td class="sell">-5.04%</td>
+                <td class="signal-strong-sell">STRONG SELL</td>
+                <td>-90</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>-7.88%</td>
+                <td>1.36x</td>
+                <td>34.0</td>
+                <td>Bearish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> SBIN</td>
+                <td>Banking</td>
+                <td>₹963.20</td>
+                <td>₹1017.64</td>
+                <td class="sell">-5.35%</td>
+                <td class="signal-strong-sell">STRONG SELL</td>
+                <td>-90</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>-4.27%</td>
+                <td>1.45x</td>
+                <td>33.4</td>
+                <td>Bearish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> TMCV</td>
+                <td>Automobile</td>
+                <td>₹377.95</td>
+                <td>₹409.71</td>
+                <td class="sell">-7.75%</td>
+                <td class="signal-strong-sell">STRONG SELL</td>
+                <td>-90</td>
+                <td><span class="emoji">🆕</span> NEW</td>
+                <td>-10.87%</td>
+                <td>1.21x</td>
+                <td>33.3</td>
+                <td>Bearish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> VEDL</td>
+                <td>Metals & Mining</td>
+                <td>₹331.05</td>
+                <td>₹438.56</td>
+                <td class="sell">-24.51%</td>
+                <td class="signal-strong-sell">STRONG SELL</td>
+                <td>-90</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>-20.90%</td>
+                <td>1.27x</td>
+                <td>28.8</td>
+                <td>Bearish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> TCS</td>
+                <td>IT</td>
+                <td>₹2264.00</td>
+                <td>₹2394.56</td>
+                <td class="sell">-5.45%</td>
+                <td class="signal-strong-sell">STRONG SELL</td>
+                <td>-100</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>-6.63%</td>
+                <td>0.92x</td>
+                <td>29.9</td>
+                <td>Bearish</td>
+            </tr>
+        
+            <tr>
+                <td><span class="emoji">🔴</span> ICICIBANK</td>
+                <td>Banking</td>
+                <td>₹1244.50</td>
+                <td>₹1273.18</td>
+                <td class="sell">-2.25%</td>
+                <td class="signal-strong-sell">STRONG SELL</td>
+                <td>-105</td>
+                <td><span class="emoji">➡️</span> STABLE</td>
+                <td>-2.36%</td>
+                <td>0.69x</td>
+                <td>39.9</td>
+                <td>Bearish</td>
+            </tr>
+        
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="footer">
+            <p>Generated by Advanced Portfolio Analyzer | Data for educational purposes only</p>
+            <p>Analysis based on Relative Strength, Volume Expansion, and Sector Strength</p>
+        </div>
+    </div>
+    
+    <script>
+        const chartConfig = {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            }
+        };
+        
+        // Trend Chart (NEW)
+        new Chart(document.getElementById('trendChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ["RISING", "FALLING", "STABLE", "NEW"],
+                datasets: [{
+                    label: 'Score Trends',
+                    data: [0, 0, 20, 5],
+                    backgroundColor: ["rgba(40, 167, 69, 0.6)", "rgba(220, 53, 69, 0.6)", "rgba(255, 193, 7, 0.6)", "rgba(108, 117, 125, 0.6)"],
+                    borderColor: ["rgb(40, 167, 69)", "rgb(220, 53, 69)", "rgb(255, 193, 7)", "rgb(108, 117, 125)"],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: {
+                                size: 14
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                let value = context.parsed || 0;
+                                let total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                let percentage = ((value / total) * 100).toFixed(1);
+                                return label + ': ' + value + ' stocks (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Stock Scores Chart
+        new Chart(document.getElementById('scoresChart'), {
+            type: 'bar',
+            data: {
+                labels: ["ADANIENT", "TMPV", "SAIL", "OIL", "ADANIPOWER", "TATASTEEL", "ASIANPAINT", "MOTILALOFS", "ITC", "GAIL", "HINDUNILVR", "PFC", "LT", "HAL", "IRCTC", "HDFCBANK", "IOC", "RELIANCE", "JIOFIN", "INFY", "SBIN", "TMCV", "VEDL", "TCS", "ICICIBANK"],
+                datasets: [{
+                    label: 'Total Score',
+                    data: [145, 115, 105, 100, 95, 90, 80, 55, 50, 40, 25, -30, -30, -35, -50, -70, -75, -90, -90, -90, -90, -90, -90, -100, -105],
+                    backgroundColor: ["rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(255, 206, 86, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)"],
+                    borderColor: ["rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(255, 206, 86)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)"],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                ...chartConfig,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        // Sector Chart
+        new Chart(document.getElementById('sectorChart'), {
+            type: 'bar',
+            data: {
+                labels: ["Diversified", "Power & Utilities", "FMCG", "Metals & Mining", "Automobile", "Energy", "Financial Services", "Infrastructure", "Power Finance", "Aerospace & Defence", "Railways & Tourism", "Banking", "IT"],
+                datasets: [{
+                    label: 'Sector Strength',
+                    data: [145.0, 95.0, 51.666666666666664, 35.0, 12.5, -6.25, -17.5, -30.0, -30.0, -35.0, -50.0, -88.33333333333333, -95.0],
+                    backgroundColor: 'rgba(102, 126, 234, 0.6)',
+                    borderColor: 'rgb(102, 126, 234)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        // Relative Strength Chart
+        new Chart(document.getElementById('rsChart'), {
+            type: 'bar',
+            data: {
+                labels: ["ADANIENT", "TMPV", "SAIL", "OIL", "ADANIPOWER", "TATASTEEL", "ASIANPAINT", "MOTILALOFS", "ITC", "GAIL", "HINDUNILVR", "PFC", "LT", "HAL", "IRCTC", "HDFCBANK", "IOC", "RELIANCE", "JIOFIN", "INFY", "SBIN", "TMCV", "VEDL", "TCS", "ICICIBANK"],
+                datasets: [{
+                    label: 'RS Value (%)',
+                    data: [17.654992285310918, 2.4346478280879325, 9.779648613559385, 14.427761794149601, 7.107878131434508, 3.9052220726074167, 5.227837000623894, 1.7586013539839396, 3.0019726014532484, 2.3009257667590077, 2.6067072655166195, -1.500282758293697, -0.8630489103911991, -1.973675264208991, -2.879967754580437, -0.6352557266573513, -5.190724092495628, -2.2448096697445794, -2.721198077250274, -7.879590514175974, -4.269528348276731, -10.872561454813008, -20.90039976063811, -6.627708887811686, -2.355558256396244],
+                    backgroundColor: ["rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(75, 192, 192, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)", "rgba(255, 99, 132, 0.6)"],
+                    borderColor: ["rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(75, 192, 192)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)", "rgb(255, 99, 132)"],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        // Volume Chart
+        new Chart(document.getElementById('volumeChart'), {
+            type: 'bar',
+            data: {
+                labels: ["ADANIENT", "TMPV", "SAIL", "OIL", "ADANIPOWER", "TATASTEEL", "ASIANPAINT", "MOTILALOFS", "ITC", "GAIL", "HINDUNILVR", "PFC", "LT", "HAL", "IRCTC", "HDFCBANK", "IOC", "RELIANCE", "JIOFIN", "INFY", "SBIN", "TMCV", "VEDL", "TCS", "ICICIBANK"],
+                datasets: [{
+                    label: 'Volume Ratio',
+                    data: [2.2136672656106824, 5.052451177279676, 0.8016631679150232, 0.5506246618699773, 1.1435802193642721, 1.3375489209834686, 0.7501353625842297, 0.3932542433078038, 0.7071297328881527, 0.8292575483696076, 0.5466648647735172, 0.4881990619692879, 0.5073568970330702, 1.7991517774266323, 0.41776417074354155, 0.7008361085527044, 2.467162509618822, 1.0329522202367245, 0.3922293210319135, 1.3570544718068431, 1.4518898650298737, 1.211696256238421, 1.268258398255772, 0.9173048770380888, 0.6904170821494428],
+                    backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                    borderColor: 'rgb(153, 102, 255)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

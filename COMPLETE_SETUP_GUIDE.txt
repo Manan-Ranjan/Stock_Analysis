@@ -1,0 +1,402 @@
+================================================================================
+    REAL-TIME STOCK ANALYSIS PLATFORM - COMPLETE SETUP GUIDE
+================================================================================
+
+📋 TABLE OF CONTENTS
+--------------------
+1. Prerequisites
+2. Quick Start (Recommended)
+3. Manual Setup
+4. Running the Application
+5. Testing the Features
+6. Troubleshooting
+7. Available Features
+
+================================================================================
+1. PREREQUISITES
+================================================================================
+
+Required Software:
+- Python 3.8 or higher
+- pip (Python package manager)
+- Git (optional, for version control)
+
+Check your Python version:
+    python --version
+    # or
+    python3 --version
+
+================================================================================
+2. QUICK START (RECOMMENDED) - 5 Minutes
+================================================================================
+
+Step 1: Navigate to Project Directory
+--------------------------------------
+cd /Users/mananranjan/Desktop/Hackathon/StockAnalysis
+
+Step 2: Install Required Packages
+----------------------------------
+pip install streamlit pandas plotly yfinance prophet numpy scipy
+
+# Or install from requirements file:
+pip install -r frontend/requirements.txt
+
+Step 3: Run the Frontend (Streamlit)
+-------------------------------------
+# Option A: Run Home Page (Main Dashboard)
+streamlit run frontend/Home.py
+
+# Option B: Run Predictions Page Directly
+streamlit run frontend/pages/2_🔮_Predictions.py --server.port 8502
+
+# Option C: Run Live Dashboard
+streamlit run frontend/pages/1_📊_Live_Dashboard.py --server.port 8503
+
+Step 4: Open in Browser
+------------------------
+The application will automatically open in your browser at:
+- Home Page: http://localhost:8501
+- Predictions: http://localhost:8502
+- Live Dashboard: http://localhost:8503
+
+================================================================================
+3. MANUAL SETUP (Detailed)
+================================================================================
+
+Step 1: Create Virtual Environment (Recommended)
+-------------------------------------------------
+# Create virtual environment
+python -m venv venv
+
+# Activate it
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+venv\Scripts\activate
+
+Step 2: Install Frontend Dependencies
+--------------------------------------
+cd frontend
+pip install -r requirements.txt
+
+Required packages:
+- streamlit >= 1.28.0
+- pandas >= 2.0.0
+- plotly >= 5.17.0
+- yfinance >= 0.2.28
+- prophet >= 1.1.4
+- numpy >= 1.24.0
+- scipy >= 1.11.0
+- streamlit-autorefresh >= 0.0.1
+
+Step 3: Install Backend Dependencies (Optional - for WebSocket features)
+-------------------------------------------------------------------------
+cd ../backend
+pip install -r requirements.txt
+
+Required packages:
+- fastapi >= 0.104.0
+- uvicorn[standard] >= 0.24.0
+- websockets >= 12.0
+- redis >= 5.0.0
+- celery >= 5.3.0
+- sqlalchemy >= 2.0.0
+- psycopg2-binary >= 2.9.0
+
+Step 4: Set Up Environment Variables (Optional)
+------------------------------------------------
+cp .env.example .env
+
+Edit .env file with your settings:
+    DATABASE_URL=postgresql://user:password@localhost:5432/stockdb
+    REDIS_URL=redis://localhost:6379/0
+    SECRET_KEY=your-secret-key-here
+
+================================================================================
+4. RUNNING THE APPLICATION
+================================================================================
+
+METHOD 1: Frontend Only (Streamlit) - SIMPLEST
+-----------------------------------------------
+This runs the prediction and analysis features without backend services.
+
+Terminal 1 - Home Page:
+    cd /Users/mananranjan/Desktop/Hackathon/StockAnalysis
+    streamlit run frontend/Home.py
+
+Terminal 2 - Predictions Page:
+    cd /Users/mananranjan/Desktop/Hackathon/StockAnalysis
+    streamlit run frontend/pages/2_🔮_Predictions.py --server.port 8502
+
+Terminal 3 - Live Dashboard:
+    cd /Users/mananranjan/Desktop/Hackathon/StockAnalysis
+    streamlit run frontend/pages/1_📊_Live_Dashboard.py --server.port 8503
+
+Access URLs:
+- Home: http://localhost:8501
+- Predictions: http://localhost:8502
+- Live Dashboard: http://localhost:8503
+
+
+METHOD 2: Full Stack with Docker (Advanced)
+--------------------------------------------
+This runs everything including backend, database, and Redis.
+
+Step 1: Start all services:
+    docker-compose up -d
+
+Step 2: Check status:
+    docker-compose ps
+
+Step 3: View logs:
+    docker-compose logs -f
+
+Step 4: Stop services:
+    docker-compose down
+
+Access URLs:
+- Frontend: http://localhost:8501
+- Backend API: http://localhost:8000
+- API Docs: http://localhost:8000/docs
+
+
+METHOD 3: Backend + Frontend Separately (Development)
+------------------------------------------------------
+Terminal 1 - Backend API:
+    cd backend
+    uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+Terminal 2 - Frontend:
+    cd frontend
+    streamlit run Home.py
+
+Terminal 3 - Celery Worker (Optional):
+    cd backend
+    celery -A app.core.celery_app worker --loglevel=info
+
+Access URLs:
+- Frontend: http://localhost:8501
+- Backend: http://localhost:8000
+- API Docs: http://localhost:8000/docs
+
+================================================================================
+5. TESTING THE FEATURES
+================================================================================
+
+A. Test Predictions Page
+-------------------------
+1. Open http://localhost:8502
+2. Select stock: HDFCBANK
+3. Choose prediction period: 30 days
+4. Click "Generate Predictions"
+5. Expected: See price forecast chart with confidence intervals
+
+B. Test Monte Carlo Simulation
+-------------------------------
+1. Scroll to "Monte Carlo Risk Analysis" section
+2. Select stock: RELIANCE
+3. Set simulations: 1000
+4. Set days: 30
+5. Click "Run Simulation"
+6. Expected: See probability distribution and risk metrics
+
+C. Test Live Dashboard
+----------------------
+1. Open http://localhost:8503
+2. View watchlist with real-time updates
+3. Add/remove stocks from watchlist
+4. Check technical indicators
+5. Expected: Auto-refresh every 5 seconds
+
+D. Test Data Fallback System
+-----------------------------
+Run the test script:
+    python test_predictions_fallback.py
+
+Expected output:
+    ✅ All 5 stocks load successfully
+    ✅ Shows data source (Yahoo Finance or Local CSV)
+    ✅ Displays price and date range
+
+================================================================================
+6. TROUBLESHOOTING
+================================================================================
+
+Problem: "Module not found" error
+----------------------------------
+Solution:
+    pip install --upgrade -r frontend/requirements.txt
+
+Problem: "Port already in use"
+-------------------------------
+Solution:
+    # Find process using port 8501
+    lsof -ti:8501 | xargs kill -9
+    
+    # Or use different port
+    streamlit run frontend/Home.py --server.port 8504
+
+Problem: "Could not fetch data for stock"
+------------------------------------------
+Solution:
+    1. Check stock symbol is correct (use .NS suffix for NSE stocks)
+    2. Try stocks from available list:
+       HDFCBANK, RELIANCE, INFY, TCS, ICICIBANK
+    3. Check internet connection for Yahoo Finance
+    4. System will automatically fall back to local CSV files
+
+Problem: Prophet prediction fails
+----------------------------------
+Solution:
+    pip install --upgrade prophet
+    # If still fails, try:
+    pip uninstall prophet
+    pip install prophet
+
+Problem: Timezone error in predictions
+---------------------------------------
+Solution: Already fixed! The data_helper now removes timezone info.
+
+Problem: Docker containers won't start
+---------------------------------------
+Solution:
+    docker-compose down
+    docker-compose up --build -d
+
+Problem: Streamlit page is blank
+---------------------------------
+Solution:
+    1. Clear browser cache
+    2. Try incognito/private mode
+    3. Check terminal for errors
+    4. Restart Streamlit server
+
+================================================================================
+7. AVAILABLE FEATURES
+================================================================================
+
+✅ WORKING FEATURES (Frontend Only)
+------------------------------------
+1. Prophet Price Predictions
+   - 7, 30, 90 day forecasts
+   - Confidence intervals
+   - Interactive charts
+
+2. Monte Carlo Risk Analysis
+   - 1000+ simulations
+   - Probability distributions
+   - VaR and risk metrics
+
+3. Live Dashboard
+   - Real-time price updates
+   - Technical indicators (RSI, MACD, etc.)
+   - Watchlist management
+   - Auto-refresh
+
+4. Data Fallback System
+   - Yahoo Finance (primary)
+   - Local CSV files (fallback)
+   - 22 stocks available offline
+
+5. Multi-Stock Analysis
+   - Compare multiple stocks
+   - Historical trends
+   - Volume analysis
+
+🚧 ADVANCED FEATURES (Require Backend)
+---------------------------------------
+1. WebSocket Real-time Streaming
+2. Database Storage (PostgreSQL)
+3. Redis Caching
+4. Celery Background Tasks
+5. User Authentication
+6. API Endpoints
+
+================================================================================
+8. AVAILABLE STOCKS
+================================================================================
+
+The following stocks have data available (CSV fallback):
+
+Banking & Finance:
+- HDFCBANK, ICICIBANK, SBIN, PFC
+
+Technology:
+- INFY, TCS
+
+Energy & Oil:
+- RELIANCE, IOC, OIL, GAIL
+
+Metals & Mining:
+- TATASTEEL, SAIL, VEDL
+
+Automobiles:
+- TATAMOTORS
+
+Infrastructure:
+- LT, IRCTC
+
+Consumer Goods:
+- ITC, HINDUNILVR, ASIANPAINT
+
+Conglomerates:
+- ADANIENT, ADANIPOWER, JIOFIN
+
+================================================================================
+9. QUICK REFERENCE COMMANDS
+================================================================================
+
+# Start Home Page
+streamlit run frontend/Home.py
+
+# Start Predictions
+streamlit run frontend/pages/2_🔮_Predictions.py --server.port 8502
+
+# Start Live Dashboard
+streamlit run frontend/pages/1_📊_Live_Dashboard.py --server.port 8503
+
+# Test Data Fallback
+python test_predictions_fallback.py
+
+# Install Dependencies
+pip install -r frontend/requirements.txt
+
+# Start Backend (Optional)
+cd backend && uvicorn app.main:app --reload
+
+# Docker (Full Stack)
+docker-compose up -d
+
+# Stop All
+docker-compose down
+# Or kill Streamlit: Ctrl+C in terminal
+
+================================================================================
+10. SUPPORT & DOCUMENTATION
+================================================================================
+
+Additional Documentation:
+- REALTIME_PLATFORM_README.md - Platform overview
+- REALTIME_PLATFORM_ARCHITECTURE.md - System architecture
+- SETUP_GUIDE.md - Backend setup details
+- README.md - Original project documentation
+
+Test Files:
+- test_predictions_fallback.py - Test data fetching
+- test_data_fetch.py - Test data sources
+
+Configuration:
+- frontend/requirements.txt - Frontend dependencies
+- backend/requirements.txt - Backend dependencies
+- docker-compose.yml - Docker configuration
+- .env.example - Environment variables template
+
+================================================================================
+
+🎉 You're all set! Start with Method 1 (Frontend Only) for the quickest setup.
+
+For questions or issues, check the troubleshooting section above.
+
+Happy Trading! 📈
+
+================================================================================

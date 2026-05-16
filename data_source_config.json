@@ -1,0 +1,61 @@
+{
+    "primary_source": "finnhub",
+    "fallback_source": "yahoo",
+    "exchange": "NSE",
+    "days": 60,
+    "use_cache": true,
+    "cache_duration_hours": 1,
+    "finnhub_api_key": null,
+    "description": "Data source configuration for stock analysis",
+    "sources": {
+        "google": {
+            "name": "Google Finance",
+            "method": "web_scraping",
+            "pros": [
+                "Real-time data",
+                "No API key needed"
+            ],
+            "cons": [
+                "Limited historical data",
+                "May break with UI changes"
+            ],
+            "recommended_for": "Current prices only"
+        },
+        "yahoo": {
+            "name": "Yahoo Finance",
+            "method": "api",
+            "pros": [
+                "Extensive historical data",
+                "Reliable API",
+                "Technical indicators",
+                "No API key required"
+            ],
+            "cons": [
+                "Occasional rate limits"
+            ],
+            "recommended_for": "Historical analysis and technical indicators"
+        },
+        "finnhub": {
+            "name": "Finnhub",
+            "method": "api",
+            "pros": [
+                "Professional-grade data",
+                "Extensive historical data",
+                "Real-time quotes",
+                "Global market coverage",
+                "Free tier available"
+            ],
+            "cons": [
+                "Requires API key",
+                "Rate limits on free tier"
+            ],
+            "recommended_for": "Professional analysis with API key",
+            "setup": {
+                "api_key_required": true,
+                "free_tier": "60 API calls/minute",
+                "signup_url": "https://finnhub.io/register",
+                "env_var": "FINNHUB_API_KEY"
+            }
+        }
+    }
+}
